@@ -6,6 +6,7 @@
 
 ```
 docker run -d \
-    -v /root:/volume1/docker/best-cf-ip \
+    -v /volume1/docker/best-cf-ip:/root \
+    --name="best-cf-ip" \
     duxlong/best-cf-ip
 ```
