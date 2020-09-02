@@ -4,6 +4,18 @@
 DIR_IP='/volume1/docker/best-cf-ip/ip.txt'
 DIR_CONFIG='/volume1/docker/v2fly/config.json'
 
+if [ ! -f $DIR_IP ]
+then
+    echo "ip.txt 不存在！"
+    exit 1
+fi
+
+if [ ! -f $DIR_CONFIG ]
+then
+    echo "config.json 不存在！"
+    exit 1
+fi
+
 ip_new=`cat $DIR_IP`
 
 ip_old=`cat config.json | grep address | cut -d\" -f4`
