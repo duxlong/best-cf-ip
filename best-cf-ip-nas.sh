@@ -26,7 +26,7 @@ then
 else
     echo "需要更换 IP"
     # sed 使用双引号才能识别变量 $ip ; 双引号内部的双引号需要转义
-    sed -i "s/\(\"address\":\)\(.*\)\(\",\)/\1${ip_new}\3/" $DIR_CONFIG
+    sed -i "s/\(\"address\":\"\)\(.*\)\(\",\)/\1${ip_new}\3/" $DIR_CONFIG
     # 重启 v2ray 使配置生效
     docker restart v2fly
     echo "已更换最新 IP"
