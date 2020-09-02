@@ -4,7 +4,7 @@ RUN apk update && \
     apk add --no-cache curl bash && \
     curl https://raw.githubusercontent.com/duxlong/best-cf-ip/master/best-cf-ip.sh > /root/best-cf-ip.sh && \
     chmod +x /root/best-cf-ip.sh && \
-    echo "* * * * * /bin/bash /root/best-cf-ip.sh" > /var/spool/cron/crontabs/root && \
+    echo "*/60 * * * * /bin/bash /root/best-cf-ip.sh" > /var/spool/cron/crontabs/root && \
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/*
 
