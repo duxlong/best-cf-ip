@@ -30,7 +30,7 @@ docker pull duxlong/best-cf-ip:latest
 docker run
 ```
 docker run -d \
-    -v [your nas volume/ip.txt]:/root/ip.txt \
+    -v [your nas volume]:/root/res \
     --name="best-cf-ip" \
     duxlong/best-cf-ip
 ```
