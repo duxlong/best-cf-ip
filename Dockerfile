@@ -5,6 +5,7 @@ RUN apk update && \
     curl https://raw.githubusercontent.com/duxlong/best-cf-ip/master/best-cf-ip.sh > /root/best-cf-ip.sh && \
     chmod +x /root/best-cf-ip.sh && \
     echo "*/60 * * * * /bin/bash /root/best-cf-ip.sh" > /var/spool/cron/crontabs/root && \
+    mkdir /root/res
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/*
 
