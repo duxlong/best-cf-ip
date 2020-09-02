@@ -58,8 +58,9 @@ echo "5.从 ip-tmp.txt 中选择最快的 IP"
 last=$(cat ip-tmp.txt | sort -r -n -k 1 | head -1)
 last_ip=$(echo $last | awk '{print $2}')
 last_speed=$(($(echo $last | awk '{print $1}') / 1024 / 1024 * 8))
-
 echo $last_ip >ip.txt
+
+# 修改
 
 end_seconds=$(date +%s)
 echo "$last_ip 满足要求，速度是 ${last_speed}Mb/s，耗时 $(($end_seconds - $start_seconds)) 秒！"
