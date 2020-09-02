@@ -60,7 +60,5 @@ last_ip=$(echo $last | awk '{print $2}')
 last_speed=$(($(echo $last | awk '{print $1}') / 1024 / 1024 * 8))
 echo $last_ip >ip.txt
 
-# 修改
-
 end_seconds=$(date +%s)
 echo "$last_ip 满足要求，速度是 ${last_speed}Mb/s，耗时 $(($end_seconds - $start_seconds)) 秒！"
