@@ -22,7 +22,7 @@ if [ -f ip.txt ]; then
     fi
     current_ip=$ip
     current_speed=$higher_speed
-    echo "current ip $current_ip ; current speed $current_speed"
+    echo "current ip $current_ip ; current speed ${current_speed}Mb/s"
 fi
 
 
