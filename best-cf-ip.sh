@@ -12,13 +12,19 @@ if [ -f ip.txt ]; then
         echo "current ip $ip ${speed}Mb/s > 30Mb/s"
         exit 1
     else
+        higher_speed=$speed
         speed=$(($(curl --resolve apple.freecdn.workers.dev:443:$ip https://apple.freecdn.workers.dev/105/media/us/iphone-11-pro/2019/3bd902e4-0752-4ac1-95f8-6225c32aec6d/films/product/iphone-11-pro-product-tpl-cc-us-2019_1280x720h.mp4 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//") / 1024 / 1024 * 8))
         if [ $speed -gt 30 ]; then
             echo "current ip $ip ${speed}Mb/s > 30Mb/s"
             exit 1
         fi
+        if [ $speed -gt $higher_speed ]; then higher_speed=$speed; fi
     fi
+    current_ip=$ip
+    current_speed=$higher_speed
+    echo "current ip $current_ip ; current speed $current_speed"
 fi
+
 
 echo "init..."
 rm ip-random.txt
@@ -59,6 +65,11 @@ echo "ip-tmp.txt to ip.txt"
 last=$(cat ip-tmp.txt | sort -r -n -k 1 | head -1)
 last_ip=$(echo $last | awk '{print $2}')
 last_speed=$(($(echo $last | awk '{print $1}') / 1024 / 1024 * 8))
+# last_speed vs current_speed
+if [ $current_speed -gt $last_speed ]; then
+    last_speed=$current_speed
+    last_ip=$current_ip
+fi
 echo $last_ip >ip.txt
 echo $last_ip >/root/res/ip.txt
 
