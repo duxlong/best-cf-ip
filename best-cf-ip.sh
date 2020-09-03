@@ -35,7 +35,8 @@ for ip in $(cat ip-core.txt); do
 done
 
 echo "ip-random.txt to ip-100.txt"
-fping -f ip-random.txt -c $fping_count -i 0 | grep "\[$(($fping_count - 1))\]" | sort -n -k 10 | head -100 >ip-100.txt
+# 2>/dev/null 不显示错误提示
+fping -f ip-random.txt -c $fping_count -i 0 2>/dev/null | grep "\[$(($fping_count - 1))\]" | sort -n -k 10 | head -100 >ip-100.txt
 
 echo "ip-100.txt to ip-3.txt"
 for ip in $(cat ip-100.txt | awk '{print $1}'); do
