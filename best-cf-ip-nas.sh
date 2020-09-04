@@ -20,6 +20,8 @@ ip_new=`cat $DIR_IP`
 
 ip_old=`cat $DIR_CONFIG | grep address | cut -d\" -f4`
 
+echo "old ip $ip_old ; new ip $ip_new"
+
 if [ ip_old = ip_new ]
 then
     echo "毋需更换 IP"
