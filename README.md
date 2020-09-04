@@ -8,7 +8,7 @@ docker best-cf-ip 中，每 1 小时运行，整点运行；
 
 ## best-cf-ip-nas.sh
 
-拷贝到 NAS 中，每 1 小时运行，首次运行时间 00:07，最后运行时间 23:07；
+拷贝到 NAS 中，每 1 小时运行，首次运行时间 00:05，最后运行时间 23:05；
 
 判断 IP 是否更新，如果更新了，则把新 IP 写入 config.json 再重启 docker v2fly
 
