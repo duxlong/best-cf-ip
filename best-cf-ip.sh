@@ -1,21 +1,24 @@
 #!/bin/bash
 
+# 测速阈值
+base_speed=15
+
 fping_count=30
 
 start_seconds=$(date +%s)
 
 if [ -f ip.txt ]; then
-    echo "Test current ip ?> 30Mb/s"
+    echo "Test current ip ? ${base_speed}Mb/s"
     ip=$(cat ip.txt)
     speed=$(($(curl --resolve speed.cloudflare.com:443:$ip https://speed.cloudflare.com/__down?bytes=1000000000 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//") / 1024 / 1024 * 8))
-    if [ $speed -gt 30 ]; then
-        echo "current ip $ip ${speed}Mb/s > 30Mb/s"
+    if [ $speed -gt $base_speed ]; then
+        echo "current ip $ip ${speed}Mb/s > ${base_speed}Mb/s"
         exit 1
     else
         higher_speed=$speed
         speed=$(($(curl --resolve apple.freecdn.workers.dev:443:$ip https://apple.freecdn.workers.dev/105/media/us/iphone-11-pro/2019/3bd902e4-0752-4ac1-95f8-6225c32aec6d/films/product/iphone-11-pro-product-tpl-cc-us-2019_1280x720h.mp4 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//") / 1024 / 1024 * 8))
-        if [ $speed -gt 30 ]; then
-            echo "current ip $ip ${speed}Mb/s > 30Mb/s"
+        if [ $speed -gt $base_speed ]; then
+            echo "current ip $ip ${speed}Mb/s > ${base_speed}Mb/s"
             exit 1
         fi
         if [ $speed -gt $higher_speed ]; then higher_speed=$speed; fi
