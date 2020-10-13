@@ -30,7 +30,7 @@ docker pull duxlong/best-cf-ip:latest
 docker run（根据自己的情况修改）
 ```
 docker run -d \
-    -e DOCKERNAME="v2fly"
+    -e DOCKERNAME="v2fly" \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
     -v /volume1/docker/v2fly:/root/v2ray \
     --name="best-cf-ip" \
