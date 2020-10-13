@@ -23,10 +23,15 @@ docker pull
 docker pull duxlong/best-cf-ip:latest
 ```
 
-docker run
+docker run（根据自己的情况修改）
 ```
 docker run -d \
-    -v [your nas volume]:/root/res \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    -v /volume1/docker/v2fly:/root/v2ray \
     --name="best-cf-ip" \
     duxlong/best-cf-ip
 ```
+
+ `-v /var/run/docker.sock:/var/run/docker.sock:ro` 是为了在容器内操作其他容器
+
+`-v /volume1/docker/v2fly:/root/v2ray` 为了方便修改 v2ray config 文件
