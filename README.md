@@ -22,6 +22,10 @@ https://hub.docker.com/r/duxlong/best-cf-ip
 
 ## usage
 
+best-cf-ip.sh
+
+根据自己的情况作调整
+
 docker pull
 ```
 docker pull duxlong/best-cf-ip:latest
