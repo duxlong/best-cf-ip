@@ -10,7 +10,7 @@
 
 ip-total.txt 网友总结的 cloudflare ips
 
-ip-core.txt 我排除了一些肯定没速度的 ips
+ip-core.txt 我排除了一些对我来说肯定没速度的 ips
 
 ## github
 
