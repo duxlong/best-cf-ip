@@ -12,4 +12,4 @@ RUN apk update && \
 WORKDIR /root
 
 # 容器开启时先运行一次脚本；必须 -f 前台运行
-CMD best-cf-ip.sh && crond -f
+CMD /bin/bash -c "best-cf-ip.sh && crond -f"
