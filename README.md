@@ -1,20 +1,12 @@
 # best-cf-ip
 
-## purpose
+## intro
 
-为了自动化定时更新 CloudFlare CDN 到自己设备最高速的 IP
+配合 cloudflare & v2ray 使用
 
-## best-cf-ip.sh
+在 docker 运行，可以自动化定时更新 CloudFlare CDN 到自己设备最高速的 IP
 
-docker best-cf-ip 中，每 1 小时运行，整点运行；
-
-维护 ip.txt，保持高速 IP
-
-## best-cf-ip-nas.sh
-
-拷贝到 NAS 中，每 1 小时运行，首次运行时间 00:05，最后运行时间 23:05；
-
-判断 IP 是否更新，如果更新了，则把新 IP 写入 config.json 再重启 docker v2fly
+运行原理是，容器开启时运行一次 best-cf-ip.sh，然后 crontab 每小时运行一次 best-cf-ip.sh
 
 ## github
 
