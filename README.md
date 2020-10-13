@@ -22,7 +22,7 @@ https://hub.docker.com/r/duxlong/best-cf-ip
 
 ## usage
 
-首先根据自己的情况作调整 `best-cf-ip.sh`
+首先根据自己的情况调整 `best-cf-ip.sh`
 
 docker pull
 ```
