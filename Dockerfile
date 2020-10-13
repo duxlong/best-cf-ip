@@ -13,4 +13,4 @@ RUN apk update && \
 
 WORKDIR /root
 
-CMD start.sh
+CMD /root/start.sh
