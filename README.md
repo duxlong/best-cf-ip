@@ -8,6 +8,10 @@
 
 运行原理是，容器开启时运行一次 best-cf-ip.sh，然后 crontab 每小时运行一次 best-cf-ip.sh
 
+ip-total.txt 网友总结的 cloudflare ips
+
+ip-core.txt 我排除了一些肯定没速度的 ips
+
 ## github
 
 https://github.com/duxlong/best-cf-ip
