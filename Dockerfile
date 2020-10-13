@@ -1,5 +1,7 @@
 FROM alpine
 
+ENV DOCKERNAME="your-docker-v2ray-name"
+
 RUN apk update && \
     apk add --no-cache bash curl fping docker && \
     curl https://raw.githubusercontent.com/duxlong/best-cf-ip/master/ip-core.txt > /root/ip-core.txt && \
