@@ -3,6 +3,8 @@
 # 测速阈值
 base_speed=15
 
+current_speed=0
+
 fping_count=30
 
 start_seconds=$(date +%s)
