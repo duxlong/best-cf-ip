@@ -1,5 +1,9 @@
 # best-cf-ip
 
+## purpose
+
+为了自动化定时更新 CloudFlare CDN 到自己设备最高速的 IP
+
 ## best-cf-ip.sh
 
 docker best-cf-ip 中，每 1 小时运行，整点运行；
