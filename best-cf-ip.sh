@@ -79,9 +79,9 @@ echo "$last_ip 满足要求，速度是 ${last_speed}Mb/s，耗时 $(($end_secon
 echo "modify v2ray config"
 sed -i "s/\(\"address\":\"\)\(.*\)\(\",\)/\1${last_ip}\3/" /root/v2ray/config.json
 
-# 此处要修改为自己的 docker v2ray name
+# $DOCKERNAME : ENV 变量
 echo "restart v2ray"
-docker restart v2ray-v2fly
+docker restart $DOCKERNAME
 
 echo "achieve!"
 rm -rf /tmp/*

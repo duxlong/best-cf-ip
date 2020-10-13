@@ -22,8 +22,6 @@ https://hub.docker.com/r/duxlong/best-cf-ip
 
 ## usage
 
-首先根据自己的情况调整 `best-cf-ip.sh`
-
 docker pull
 ```
 docker pull duxlong/best-cf-ip:latest
@@ -32,12 +30,15 @@ docker pull duxlong/best-cf-ip:latest
 docker run（根据自己的情况修改）
 ```
 docker run -d \
+    -e DOCKERNAME="v2fly" \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
     -v /volume1/docker/v2fly:/root/v2ray \
     --name="best-cf-ip" \
     duxlong/best-cf-ip
 ```
 
- `-v /var/run/docker.sock:/var/run/docker.sock:ro` 是为了在容器内操作其他容器
+`-e DOCKERNAME="v2fly"` 设置 your-docker-v2ray-name
 
-`-v /volume1/docker/v2fly:/root/v2ray` 为了方便修改 v2ray config 文件
+ `-v /var/run/docker.sock:/var/run/docker.sock:ro` 在容器内操作其他容器
+
+`-v /volume1/docker/v2fly:/root/v2ray` 方便修改 v2ray config 文件
