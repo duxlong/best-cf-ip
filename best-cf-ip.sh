@@ -75,3 +75,10 @@ end_seconds=$(date +%s)
 rm -rf /tmp/*
 
 echo "$last_ip 满足要求，速度是 ${last_speed}Mb/s，耗时 $(($end_seconds - $start_seconds)) 秒！"
+
+echo "modify v2ray config"
+sed -i "s/\(\"address\":\"\)\(.*\)\(\",\)/\1${ip_new}\3/" /root/v2ray/config.json
+
+# 此处要修改为自己的 docker v2ray name
+echo "restart v2ray"
+docker restart v2ray-v2fly
