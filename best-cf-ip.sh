@@ -31,7 +31,7 @@ if [ -f ip.txt ]; then
     echo "current ip $current_ip ; current speed ${current_speed}Mb/s"
 fi
 
-echo "init..."
+echo "init ..."
 rm -rf /tmp/*
 
 echo "ip-core.txt to ip-random.txt"
@@ -80,7 +80,7 @@ echo "modify v2ray config"
 sed -i "s/\(\"address\":\"\)\(.*\)\(\",\)/\1${last_ip}\3/" /root/v2ray/config.json
 
 # $DOCKERNAME : ENV 变量
-echo "restart v2ray"
+echo "restart docker ..."
 docker restart $DOCKERNAME
 
 echo "achieve!"
