@@ -3,35 +3,44 @@
 # 测速阈值
 base_speed=15
 
+# 初始化，否则第一次运行(未生成 ip.txt)会报错
 current_speed=0
 
 fping_count=30
 
 start_seconds=$(date +%s)
 
+echo "$(date) 开始运行"
+
+# 等待开机完成，否则测速不准
+sleep 10
+
 # 通过两次测速判断 current ip 是否满足要求
 if [ -f ip.txt ]; then
-    echo "Test current ip ?> ${base_speed}Mb/s"
+    echo "测速目前 IP 的速度"
     ip=$(cat ip.txt)
     speed=$(($(curl --resolve speed.cloudflare.com:443:$ip https://speed.cloudflare.com/__down?bytes=1000000000 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//") / 1024 / 1024 * 8))
     if [ $speed -gt $base_speed ]; then
-        echo "current ip $ip ${speed}Mb/s > ${base_speed}Mb/s"
+        echo "目前 IP $ip 速度 ${speed}Mb/s 大于 ${base_speed}Mb/s"
+        echo "$(date) 结束运行"
         exit 1
     else
         higher_speed=$speed
         speed=$(($(curl --resolve apple.freecdn.workers.dev:443:$ip https://apple.freecdn.workers.dev/105/media/us/iphone-11-pro/2019/3bd902e4-0752-4ac1-95f8-6225c32aec6d/films/product/iphone-11-pro-product-tpl-cc-us-2019_1280x720h.mp4 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//") / 1024 / 1024 * 8))
         if [ $speed -gt $base_speed ]; then
-            echo "current ip $ip ${speed}Mb/s > ${base_speed}Mb/s"
+            echo "目前 IP $ip 速度 ${speed}Mb/s 大于 ${base_speed}Mb/s"
+            echo "$(date) 结束运行"
             exit 1
         fi
         if [ $speed -gt $higher_speed ]; then higher_speed=$speed; fi
     fi
     current_ip=$ip
     current_speed=$higher_speed
-    echo "current ip $current_ip ; current speed ${current_speed}Mb/s"
+    echo "目前 IP $current_ip 速度 ${current_speed}Mb/s"
 fi
 
-echo "init ..."
+echo "目前 IP 不满足要求，寻找新 IP"
+
 rm -rf /tmp/*
 
 echo "ip-core.txt to ip-random.txt"
@@ -76,12 +85,13 @@ end_seconds=$(date +%s)
 
 echo "$last_ip 满足要求，速度是 ${last_speed}Mb/s，耗时 $(($end_seconds - $start_seconds)) 秒！"
 
-echo "modify v2ray config"
+echo "修改 v2ray 配置文件中的 IP"
 sed -i "s/\(\"address\":\"\)\(.*\)\(\",\)/\1${last_ip}\3/" /root/v2ray/config.json
 
 # $DOCKERNAME : ENV 变量
-echo "restart docker ..."
+echo "重启容器"
 docker restart $DOCKERNAME
 
-echo "achieve!"
 rm -rf /tmp/*
+
+echo "$(date) 结束运行"
