@@ -23,14 +23,14 @@ if [ -f ip.txt ]; then
     if [ $speed -gt $base_speed ]; then
         echo "目前 IP $ip 速度 ${speed}Mb/s 大于 ${base_speed}Mb/s"
         echo "$(date) 结束运行"
-        exit 1
+        exit 0
     else
         higher_speed=$speed
         speed=$(($(curl --resolve apple.freecdn.workers.dev:443:$ip https://apple.freecdn.workers.dev/105/media/us/iphone-11-pro/2019/3bd902e4-0752-4ac1-95f8-6225c32aec6d/films/product/iphone-11-pro-product-tpl-cc-us-2019_1280x720h.mp4 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//") / 1024 / 1024 * 8))
         if [ $speed -gt $base_speed ]; then
             echo "目前 IP $ip 速度 ${speed}Mb/s 大于 ${base_speed}Mb/s"
             echo "$(date) 结束运行"
-            exit 1
+            exit 0
         fi
         if [ $speed -gt $higher_speed ]; then higher_speed=$speed; fi
     fi
