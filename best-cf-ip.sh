@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# 测速阈值
-base_speed=15
+# 测速阈值，单位 Mb/s，超过阈值，则不会重新测速
+# 20201121 最近速度很慢，在 0-8 Mb/s
+base_speed=5
 
 # 初始化，否则第一次运行(未生成 ip.txt)会报错
 current_speed=0
@@ -12,11 +13,12 @@ start_seconds=$(date +%s)
 
 echo "$(date) 开始运行"
 
-# 等待开机完成，否则测速不准
+# 等待 NAS 开机完成，否则测速不准
 sleep 10
 
 # 通过两次测速判断 current ip 是否满足要求
-if [ -f ip.txt ]; then
+# [ -s $file ] 判断文件不为空
+if [ -s ip.txt ]; then
     echo "测速目前 IP 的速度"
     ip=$(cat ip.txt)
     speed=$(($(curl --resolve speed.cloudflare.com:443:$ip https://speed.cloudflare.com/__down?bytes=1000000000 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//") / 1024 / 1024 * 8))
@@ -52,6 +54,13 @@ done
 echo "ip-random.txt to ip-100.txt"
 # 2>/dev/null 不显示错误提示
 fping -f /tmp/ip-random.txt -c $fping_count -i 0 2>/dev/null | grep "\[$(($fping_count - 1))\]" | sort -n -k 10 | head -100 >/tmp/ip-100.txt
+
+# 在运行过程中，出现过路由器故障，导致 fping 异常，ip-100.txt 是空文件，下面的判断语句用于捕捉这个异常
+# [ ! -s $file ] 判断文件为空
+if [ ! -s /tmp/ip-100.txt ]; then
+    echo "fping ip-100 error!"
+    exit 1
+fi
 
 echo "ip-100.txt to ip-3.txt"
 for ip in $(cat /tmp/ip-100.txt | awk '{print $1}'); do
