@@ -2,6 +2,8 @@ FROM alpine
 
 ENV DOCKERNAME="your-docker-v2ray-name"
 
+WORKDIR /root
+
 RUN apk update && \
     apk add --no-cache bash curl fping docker && \
     curl https://raw.githubusercontent.com/duxlong/best-cf-ip/master/ip-core.txt > /root/ip-core.txt && \
@@ -11,8 +13,4 @@ RUN apk update && \
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/*
 
-WORKDIR /root
-
 CMD /root/best-cf-ip.sh && crond -f
-
-
