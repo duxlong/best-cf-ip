@@ -89,6 +89,10 @@ end_seconds=$(date +%s)
 
 echo "$last_ip 满足要求，速度是 ${last_speed}Mb/s，耗时 $(($end_seconds - $start_seconds)) 秒！"
 
+if [ $last_speed -eq 0 ]; then
+    echo "找到的 IP 没有速度，尝试重启容器寻找新 IP；若仍然不行，可能是 CloudFlare 限速，或者脚本过时！"
+fi
+
 echo "修改 v2ray config.json"
 sed -i "s/\(\"address\":\"\)\(.*\)\(\",\)/\1${last_ip}\3/" /root/v2ray/config.json
 
