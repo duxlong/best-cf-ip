@@ -14,3 +14,5 @@ RUN apk update && \
 WORKDIR /root
 
 CMD /root/best-cf-ip.sh && crond -f
+
+
