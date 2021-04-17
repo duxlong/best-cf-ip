@@ -42,3 +42,23 @@ docker run -d \
  `-v /var/run/docker.sock:/var/run/docker.sock:ro` 在容器内操作其他容器
 
 `-v /volume1/docker/v2fly:/root/v2ray` 方便修改 v2ray config 文件
+
+docker compose @ QNAP-951N
+```
+version: "3"
+
+services:
+  
+  best-cf-ip:
+    container_name: best-cf-ip
+    image: duxlong/best-cf-ip
+    network_mode: host
+    # modify CMD
+    command: /root/best-cf-ip.sh
+    environment:
+      - DOCKERNAME=v2ray-core
+    volumes:
+      # operate other dockers in docker
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /share/container/docker/v2ray:/root/v2ray
+```
