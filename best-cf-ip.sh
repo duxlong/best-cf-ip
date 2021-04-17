@@ -94,7 +94,7 @@ if [ $last_speed -eq 0 ]; then
 fi
 
 echo "修改 v2ray config.json"
-sed -i "s/\(\"address\":\"\)\(.*\)\(\",\)/\1${last_ip}\3/" /root/v2ray/config.json
+sed -i "s/\(\"address\": \"\)\(.*\)\(\",\)/\1${last_ip}\3/" /root/v2ray/config.json
 
 # $DOCKERNAME : ENV 变量
 echo "重启容器"
