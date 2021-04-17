@@ -64,12 +64,16 @@ done
 sleep 10
 ls -S /tmp | head -5 >/tmp/ip-5.txt
 
+cat /tmp/ip-5.txt
+
 # 对最快的 5 个 IP 独立测速，准确性较高，找到最快的 IP
 echo "ip-5.txt to ip-last.txt"
 for ip in $(cat /tmp/ip-5.txt); do
     curl --resolve speed.cloudflare.com:443:$ip https://speed.cloudflare.com/__down?bytes=100000000 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000/\t$ip/" >>/tmp/ip-last.txt
     sleep 0.5
 done
+
+cat /tmp/ip-last.txt
 
 # 处理 ip-last.txt 得到结果
 echo "ip-last.txt to ip.txt"
