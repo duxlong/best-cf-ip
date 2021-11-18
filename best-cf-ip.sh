@@ -74,6 +74,13 @@ for ip in $(cat /tmp/ip-5.txt); do
     # curl 测速 speed_download；去掉.000；添加对应的 ip 在末尾
     curl --resolve speed.cloudflare.com:443:$ip https://speed.cloudflare.com/__down?bytes=100000000 -o /dev/null -s -w '%{speed_download}\n' --connect-timeout 5 --max-time 15 | sed "s/.000//" | sed "s/$/\t$ip/" >>/tmp/ip-last.txt
     sleep 0.5
+    
+    # 如果测试下载的文件小于 ip-random.txt，说明 CloudFlare 完全没有速度！
+    if [ $ip -eq ip-random.txt ]; then
+        echo "都没有速度，可能 CloudFlare Workers 故障！"
+        exit 1
+    fi
+    
 done
 
 echo "-----cat /tmp/ip-last.txt-----"
